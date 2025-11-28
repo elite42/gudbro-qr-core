@@ -1,0 +1,70 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "qr": {
+    "title": "QR Code",
+    "create": "Create QR Code",
+    "scan": "Scan QR Code",
+    "download": "Download",
+    "customize": "Customize",
+    "analytics": "Analytics",
+    "destination": "Destination URL",
+    "scans": "Scans",
+    "clicks": "Clicks"
+  },
+  "menu": {
+    "title": "Menu",
+    "category": "Category",
+    "price": "Price",
+    "description": "Description",
+    "allergens": "Allergens",
+    "dietary": "Dietary Info",
+    "addToOrder": "Add to Order",
+    "viewMenu": "View Menu",
+    "searchItems": "Search items..."
+  },
+  "hub": {
+    "title": "Hub Page",
+    "links": "Links",
+    "views": "Views",
+    "clicks": "Clicks",
+    "template": "Template",
+    "customize": "Customize",
+    "addLink": "Add Link",
+    "preview": "Preview"
+  },
+  "currency": {
+    "label": "Currency",
+    "convert": "Convert to {{currency}}"
+  },
+  "language": {
+    "label": "Language",
+    "vn": "Tiếng Việt",
+    "ko": "한국어",
+    "cn": "中文",
+    "en": "English"
+  }
+}

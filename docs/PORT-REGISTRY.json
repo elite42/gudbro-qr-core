@@ -1,0 +1,215 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-11-17",
+  "purpose": "Machine-readable port allocation registry for conflict detection",
+  "portRanges": {
+    "corePlatform": "3000-3013 (Core microservices modules)",
+    "verticalPackages": "3020-3099 (Business vertical standalone apps)",
+    "testing": "4000-4999 (Test environments)"
+  },
+  "ports": {
+    "3000": {
+      "module": "Frontend (Main)",
+      "type": "core",
+      "status": "active",
+      "purpose": "Main QR code creation and management UI",
+      "location": "frontend/",
+      "conflict": false
+    },
+    "3001": {
+      "module": "QR Engine",
+      "type": "core",
+      "status": "active",
+      "purpose": "QR code generation and customization",
+      "location": "packages/qr-engine/",
+      "conflict": false
+    },
+    "3002": {
+      "module": "Analytics",
+      "type": "core",
+      "status": "active",
+      "purpose": "QR code scan tracking and analytics",
+      "location": "packages/analytics/",
+      "conflict": false
+    },
+    "3003": {
+      "module": "Multi-Venue",
+      "type": "core",
+      "status": "active",
+      "purpose": "Multi-location management",
+      "location": "packages/multi-venue/",
+      "conflict": false
+    },
+    "3004": {
+      "module": "Bulk Module",
+      "type": "core",
+      "status": "active",
+      "purpose": "Bulk QR code generation",
+      "location": "packages/bulk/",
+      "conflict": true,
+      "conflictWith": "Coffeeshop Frontend (also uses 3004)",
+      "action": "⚠️ Coffeeshop should move to 3020"
+    },
+    "3005": {
+      "module": "Customization",
+      "type": "core",
+      "status": "active",
+      "purpose": "Advanced QR code visual customization",
+      "location": "packages/customization/",
+      "conflict": false
+    },
+    "3006": {
+      "module": "Dynamic QR",
+      "type": "core",
+      "status": "active",
+      "purpose": "Dynamic QR codes with URL changes",
+      "location": "packages/dynamic-qr/",
+      "conflict": false
+    },
+    "3007": {
+      "module": "Available",
+      "type": "core",
+      "status": "available",
+      "purpose": "Reserved for future core module",
+      "location": null,
+      "conflict": false
+    },
+    "3008": {
+      "module": "Templates",
+      "type": "core",
+      "status": "active",
+      "purpose": "Pre-designed QR code templates",
+      "location": "packages/templates/",
+      "conflict": false
+    },
+    "3009": {
+      "module": "QR Rework",
+      "type": "core",
+      "status": "active",
+      "purpose": "AI-powered QR code redesign service",
+      "location": "packages/qr-rework/",
+      "conflict": false
+    },
+    "3010": {
+      "module": "i18n (Internationalization)",
+      "type": "core",
+      "status": "active",
+      "purpose": "Centralized translation and multi-language support",
+      "location": "packages/i18n/",
+      "conflict": false,
+      "note": "Currently unused by vertical packages - migration planned"
+    },
+    "3011": {
+      "module": "Hub Admin",
+      "type": "core",
+      "status": "active",
+      "purpose": "Admin dashboard for hub management",
+      "location": "packages/hub/",
+      "conflict": false
+    },
+    "3012": {
+      "module": "Auth Module",
+      "type": "core",
+      "status": "active",
+      "purpose": "Authentication and authorization",
+      "location": "packages/auth/",
+      "conflict": true,
+      "conflictWith": "Rentals Backend (also uses 3012)",
+      "action": "⚠️ Rentals backend should move to 3021"
+    },
+    "3013": {
+      "module": "Filters Module",
+      "type": "core",
+      "status": "active",
+      "purpose": "51-filter categorization system",
+      "location": "packages/filters/",
+      "conflict": true,
+      "conflictWith": "Rentals Frontend (also uses 3013)",
+      "action": "⚠️ Rentals frontend should move to 3022"
+    },
+    "3020": {
+      "module": "Coffeeshop Frontend (Target)",
+      "type": "vertical",
+      "status": "recommended",
+      "purpose": "Restaurant/coffee shop digital menu (reassigned from 3004)",
+      "location": "packages/coffeeshop/frontend/",
+      "conflict": false,
+      "note": "Recommended new port to avoid conflict with Bulk module"
+    },
+    "3021": {
+      "module": "Rentals Backend (Target)",
+      "type": "vertical",
+      "status": "recommended",
+      "purpose": "Bike/scooter rental backend (reassigned from 3012)",
+      "location": "packages/rentals/",
+      "conflict": false,
+      "note": "Recommended new port to avoid conflict with Auth module"
+    },
+    "3022": {
+      "module": "Rentals Frontend (Target)",
+      "type": "vertical",
+      "status": "recommended",
+      "purpose": "Bike/scooter rental frontend (reassigned from 3013)",
+      "location": "packages/rentals/frontend/",
+      "conflict": false,
+      "note": "Recommended new port to avoid conflict with Filters module"
+    },
+    "3023": {
+      "module": "Wellness Backend (Reserved)",
+      "type": "vertical",
+      "status": "reserved",
+      "purpose": "Spa/massage/beauty backend",
+      "location": "packages/wellness/",
+      "conflict": false
+    },
+    "3024": {
+      "module": "Wellness Frontend (Reserved)",
+      "type": "vertical",
+      "status": "reserved",
+      "purpose": "Spa/massage/beauty frontend",
+      "location": "packages/wellness/frontend/",
+      "conflict": false
+    },
+    "3025": {
+      "module": "Available",
+      "type": "vertical",
+      "status": "available",
+      "purpose": "Reserved for next vertical package",
+      "location": null,
+      "conflict": false
+    }
+  },
+  "conflicts": [
+    {
+      "port": 3004,
+      "modules": ["Bulk Module (core)", "Coffeeshop Frontend (vertical)"],
+      "severity": "high",
+      "recommendation": "Move Coffeeshop to port 3020 (vertical range)",
+      "ticketUrl": null
+    },
+    {
+      "port": 3012,
+      "modules": ["Auth Module (core)", "Rentals Backend (vertical)"],
+      "severity": "high",
+      "recommendation": "Move Rentals backend to port 3021 (vertical range)",
+      "ticketUrl": null
+    },
+    {
+      "port": 3013,
+      "modules": ["Filters Module (core)", "Rentals Frontend (vertical)"],
+      "severity": "high",
+      "recommendation": "Move Rentals frontend to port 3022 (vertical range)",
+      "ticketUrl": null
+    }
+  ],
+  "nextAvailablePorts": {
+    "core": 3007,
+    "vertical": 3025
+  },
+  "guidelines": {
+    "coreRange": "Use 3000-3013 for core platform microservices only",
+    "verticalRange": "Use 3020+ for business vertical standalone apps",
+    "beforeAssigning": "Run: node docs/scripts/check-port.js <PORT>",
+    "afterAssigning": "Update both PORT-REGISTRY.json and MODULE-REGISTRY.md"
+  }
+}

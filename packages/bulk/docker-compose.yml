@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # Redis - Queue and Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Module 4 API Server
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - BASE_URL=http://localhost:3003
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./backend/uploads:/app/uploads
+      - ./backend/results:/app/results
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: npm run dev
+
+  # Bull Worker
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - BASE_URL=http://localhost:3003
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./backend/results:/app/results
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: npm run worker
+    deploy:
+      replicas: 1  # Scale up for more concurrency
+
+  # Bull Board - Queue Dashboard (Optional)
+  bull-board:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3004:3004"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    command: node bull-board.js
+
+volumes:
+  redis_data:

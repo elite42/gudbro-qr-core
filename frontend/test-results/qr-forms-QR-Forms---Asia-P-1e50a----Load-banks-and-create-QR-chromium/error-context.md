@@ -1,0 +1,72 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /qr
+            - img [ref=e8]
+          - generic [ref=e10]:
+            - heading "VietQR Code" [level=1] [ref=e11]
+            - paragraph [ref=e12]: Create a QR code for Vietnam bank transfers (23 banks supported)
+        - generic [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e17]: Asia-Pacific
+    - main [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - heading "Bank Account Details" [level=2] [ref=e22]
+            - generic [ref=e23]:
+              - generic [ref=e24]:
+                - generic [ref=e25]: Bank *
+                - combobox [ref=e26]:
+                  - option "Vietcombank (VCB)"
+                  - option "Techcombank (TCB)" [selected]
+                  - option "MB Bank (MB)"
+                  - option "VIB (VIB)"
+                  - option "ACB (ACB)"
+              - generic [ref=e27]:
+                - generic [ref=e28]: Account Number *
+                - generic [ref=e29]:
+                  - generic:
+                    - img
+                  - textbox "1234567890" [ref=e30]
+              - generic [ref=e31]:
+                - generic [ref=e32]: Account Name *
+                - generic [ref=e33]:
+                  - generic:
+                    - img
+                  - textbox "NGUYEN VAN A" [ref=e34]
+                - paragraph [ref=e35]: Full name as registered with the bank
+              - generic [ref=e36]:
+                - generic [ref=e37]: Amount (VND) (Optional)
+                - generic [ref=e38]:
+                  - generic:
+                    - img
+                  - spinbutton [ref=e39]
+                - paragraph [ref=e40]: Leave blank for customer-entered amount
+              - generic [ref=e41]:
+                - generic [ref=e42]: Transfer Description (Optional)
+                - textbox "Payment for..." [ref=e43]
+              - button "Generate QR Code" [ref=e45]:
+                - img [ref=e46]
+                - text: Generate QR Code
+          - generic [ref=e53]:
+            - img [ref=e54]
+            - generic [ref=e56]:
+              - heading "How it works" [level=3] [ref=e57]
+              - paragraph [ref=e58]: VietQR is Vietnam's universal QR payment standard. Customers can scan with any banking app from 23+ Vietnamese banks to transfer money instantly.
+        - generic [ref=e60]:
+          - heading "Preview" [level=2] [ref=e61]
+          - generic [ref=e62]:
+            - img [ref=e63]
+            - paragraph [ref=e69]: QR code will appear here
+            - paragraph [ref=e70]: Fill in the form and click Generate
+  - button "Open Next.js Dev Tools" [ref=e76] [cursor=pointer]:
+    - img [ref=e77]
+  - alert [ref=e80]
+```

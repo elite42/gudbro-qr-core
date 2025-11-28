@@ -1,0 +1,1664 @@
+openapi: 3.0.3
+info:
+  title: Gudbro QR Engine API
+  description: |
+    Complete QR Code generation API supporting 26+ QR types for restaurants, businesses, and digital services.
+
+    **Categories:**
+    - **Asia Payment QR** (13 types): VietQR, Zalo, GCash, PayMaya, Alipay, WeChat Pay, PromptPay, TrueMoney, LINE, KakaoTalk, PayNow, GrabPay, ShopeePay
+    - **Standard QR** (8 types): App Store, PDF, Video, Audio, Multi-URL, Business Page, Coupon, Feedback Form
+    - **Essential QR** (5 types): WiFi, vCard, Email, SMS, Event, Social Media
+    - **QR Decode & Rework** (3 endpoints): Decode existing QR codes, rework with artistic styles, get supported types info
+
+    **New Feature - QR Rework Service:**
+    Upload existing QR codes (PNG, JPG, PDF, etc.) and get beautifully styled versions with custom colors and designs.
+    Perfect for businesses wanting to rebrand plain QR codes with their visual identity.
+
+    All endpoints return base64-encoded QR images with customizable styles, colors, and logos.
+  version: 1.0.0
+  contact:
+    name: Gudbro
+    email: info@gudbro.com
+  license:
+    name: Proprietary
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: https://api.gudbro.com
+    description: Production server
+
+tags:
+  - name: Asia Payment QR
+    description: Payment QR codes for Asian markets (Vietnam, Philippines, Thailand, Singapore, etc.)
+  - name: Standard QR
+    description: Universal QR codes for apps, media, coupons, and feedback
+  - name: Essential QR
+    description: Basic utility QR codes (WiFi, contacts, communications)
+  - name: QR Decode & Rework
+    description: Decode existing QR codes and rework them with artistic styles
+
+paths:
+  # ===================================
+  # ASIA PAYMENT QR ENDPOINTS
+  # ===================================
+
+  /api/qr/vietqr:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate VietQR Payment Code
+      description: |
+        Generate QR code for Vietnamese bank transfers using VietQR standard.
+        Supports all major Vietnamese banks (Vietcombank, BIDV, Techcombank, etc.)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - bankCode
+                - accountNumber
+                - accountName
+              properties:
+                bankCode:
+                  type: string
+                  description: Vietnamese bank code (VCB, BIDV, TCB, etc.)
+                  example: "VCB"
+                accountNumber:
+                  type: string
+                  description: Bank account number
+                  example: "0123456789"
+                accountName:
+                  type: string
+                  description: Account holder name
+                  example: "NGUYEN VAN A"
+                amount:
+                  type: number
+                  description: Payment amount in VND (optional)
+                  example: 500000
+                description:
+                  type: string
+                  description: Payment description/reference
+                  example: "Table 5 - Pho"
+                template:
+                  type: string
+                  enum: [compact, print, qr_only]
+                  description: VietQR template format
+                  example: "qr_only"
+            examples:
+              basic:
+                summary: Basic VietQR
+                value:
+                  bankCode: "VCB"
+                  accountNumber: "0123456789"
+                  accountName: "NGUYEN VAN A"
+              withAmount:
+                summary: With amount and description
+                value:
+                  bankCode: "TCB"
+                  accountNumber: "9876543210"
+                  accountName: "TRAN THI B"
+                  amount: 250000
+                  description: "Order #12345"
+      responses:
+        '200':
+          description: QR code generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QRResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/qr/zalo:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate Zalo Social QR Code
+      description: |
+        Generate QR code for Zalo (Vietnamese messaging app).
+        Supports chat, call, and follow actions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  description: Vietnamese phone number (with or without +84)
+                  example: "+84912345678"
+                zaloId:
+                  type: string
+                  description: Zalo user ID (alternative to phone)
+                  example: "zalo123"
+                displayName:
+                  type: string
+                  description: Display name
+                  example: "Gudbro Restaurant"
+                action:
+                  type: string
+                  enum: [chat, call, follow]
+                  description: Action when QR is scanned
+                  example: "chat"
+                message:
+                  type: string
+                  description: Pre-filled message for chat action
+                  example: "Hi, I'd like to make a reservation"
+      responses:
+        '200':
+          description: QR code generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QRResponse'
+
+  /api/qr/gcash:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate GCash QR Code (Philippines)
+      description: Generate QR code for GCash mobile wallet payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mobileNumber
+              properties:
+                mobileNumber:
+                  type: string
+                  description: Philippine mobile number
+                  example: "09171234567"
+                amount:
+                  type: number
+                  description: Payment amount in PHP
+                  example: 500
+                reference:
+                  type: string
+                  description: Payment reference
+                  example: "Order 12345"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/paymaya:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate PayMaya QR Code (Philippines)
+      description: Generate QR code for PayMaya payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantId
+              properties:
+                merchantId:
+                  type: string
+                  example: "MAYA123456"
+                amount:
+                  type: number
+                  example: 1000
+                reference:
+                  type: string
+                  example: "INV-001"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/alipay:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate Alipay QR Code (China)
+      description: Generate QR code for Alipay payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantId
+              properties:
+                merchantId:
+                  type: string
+                  example: "2088123456789012"
+                amount:
+                  type: number
+                  description: Amount in CNY
+                  example: 50
+                description:
+                  type: string
+                  example: "Lunch Set A"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/wechat:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate WeChat Pay QR Code (China)
+      description: Generate QR code for WeChat Pay payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantId
+              properties:
+                merchantId:
+                  type: string
+                  example: "1234567890"
+                amount:
+                  type: number
+                  description: Amount in CNY
+                  example: 100
+                description:
+                  type: string
+                  example: "Dinner Set B"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/promptpay:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate PromptPay QR Code (Thailand)
+      description: Generate QR code for Thai PromptPay system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - promptPayId
+              properties:
+                promptPayId:
+                  type: string
+                  description: Phone number or Citizen ID
+                  example: "0812345678"
+                amount:
+                  type: number
+                  description: Amount in THB
+                  example: 500
+                reference:
+                  type: string
+                  example: "Bill#123"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/truemoney:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate TrueMoney QR Code (Thailand)
+      description: Generate QR code for TrueMoney wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - walletId
+              properties:
+                walletId:
+                  type: string
+                  example: "0891234567"
+                amount:
+                  type: number
+                  example: 300
+                reference:
+                  type: string
+                  example: "ORDER123"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/line:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate LINE QR Code (Japan/Thailand/Taiwan)
+      description: Generate QR code for LINE messaging and LINE Pay
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lineId:
+                  type: string
+                  example: "gudbro"
+                displayName:
+                  type: string
+                  example: "Gudbro Restaurant"
+                action:
+                  type: string
+                  enum: [add, pay]
+                  example: "add"
+                amount:
+                  type: number
+                  description: For LINE Pay
+                  example: 1000
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/kakaotalk:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate KakaoTalk QR Code (South Korea)
+      description: Generate QR code for KakaoTalk and KakaoPay
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kakaoId:
+                  type: string
+                  example: "gudbro_kr"
+                displayName:
+                  type: string
+                  example: "Gudbro Korea"
+                action:
+                  type: string
+                  enum: [chat, pay]
+                  example: "chat"
+                amount:
+                  type: number
+                  description: For KakaoPay in KRW
+                  example: 15000
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/paynow:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate PayNow QR Code (Singapore)
+      description: Generate QR code for Singapore PayNow system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - payNowId
+              properties:
+                payNowId:
+                  type: string
+                  description: Phone or UEN number
+                  example: "91234567"
+                amount:
+                  type: number
+                  description: Amount in SGD
+                  example: 25.50
+                reference:
+                  type: string
+                  example: "TXN001"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/grabpay:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate GrabPay QR Code (SEA)
+      description: Generate QR code for GrabPay (Singapore, Malaysia, Philippines, etc.)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantId
+              properties:
+                merchantId:
+                  type: string
+                  example: "GRAB123456"
+                amount:
+                  type: number
+                  example: 50
+                currency:
+                  type: string
+                  enum: [SGD, MYR, PHP, THB, VND, IDR]
+                  example: "SGD"
+                reference:
+                  type: string
+                  example: "ORD001"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/shopeepay:
+    post:
+      tags:
+        - Asia Payment QR
+      summary: Generate ShopeePay QR Code (SEA)
+      description: Generate QR code for ShopeePay wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantId
+              properties:
+                merchantId:
+                  type: string
+                  example: "SHOPEE789"
+                amount:
+                  type: number
+                  example: 100
+                currency:
+                  type: string
+                  enum: [SGD, MYR, PHP, THB, VND, IDR]
+                  example: "PHP"
+                reference:
+                  type: string
+                  example: "INV-123"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  # ===================================
+  # STANDARD QR ENDPOINTS
+  # ===================================
+
+  /api/qr/appstore:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate App Store QR Code
+      description: |
+        Generate QR code for app downloads (iOS App Store & Google Play).
+        Supports dual-platform with smart routing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appleAppId:
+                  type: string
+                  description: Apple App Store ID (9-10 digits)
+                  example: "123456789"
+                appleAppUrl:
+                  type: string
+                  description: Full Apple App Store URL (overrides appId)
+                  example: "https://apps.apple.com/app/id123456789"
+                googlePackageName:
+                  type: string
+                  description: Google Play package name
+                  example: "com.gudbro.app"
+                googleAppUrl:
+                  type: string
+                  description: Full Google Play URL (overrides packageName)
+                  example: "https://play.google.com/store/apps/details?id=com.gudbro.app"
+                platform:
+                  type: string
+                  enum: [ios, android, auto, dual]
+                  description: Target platform
+                  example: "auto"
+                appName:
+                  type: string
+                  example: "Gudbro Restaurant"
+                appIcon:
+                  type: string
+                  description: App icon URL
+                  example: "https://example.com/icon.png"
+                fallbackUrl:
+                  type: string
+                  description: Fallback URL for unsupported devices
+                  example: "https://gudbro.com"
+            examples:
+              dualPlatform:
+                summary: Dual Platform (iOS & Android)
+                value:
+                  appleAppId: "123456789"
+                  googlePackageName: "com.gudbro.app"
+                  appName: "Gudbro Restaurant"
+                  platform: "dual"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/pdf:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate PDF QR Code
+      description: |
+        Generate QR code linking to PDF files (menus, brochures, wine lists).
+        Supports view-in-browser or force-download modes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - pdfUrl
+              properties:
+                pdfUrl:
+                  type: string
+                  description: Direct URL to PDF file
+                  example: "https://restaurant.com/menu.pdf"
+                pdfTitle:
+                  type: string
+                  example: "Restaurant Menu 2024"
+                download:
+                  type: boolean
+                  description: Force download instead of view
+                  example: false
+                fileSize:
+                  type: number
+                  description: File size in bytes (for display)
+                  example: 2500000
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/video:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate Video QR Code
+      description: |
+        Generate QR code for video content (YouTube, Vimeo, Facebook, etc.).
+        Auto-detects platform and supports autoplay/start time.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - videoUrl
+              properties:
+                videoUrl:
+                  type: string
+                  example: "https://www.youtube.com/watch?v=abc123"
+                videoTitle:
+                  type: string
+                  example: "How to Make Pho"
+                platform:
+                  type: string
+                  enum: [youtube, vimeo, facebook, instagram, tiktok, direct, other]
+                  description: Auto-detected if not specified
+                  example: "youtube"
+                autoplay:
+                  type: boolean
+                  description: Enable autoplay (YouTube only)
+                  example: false
+                startTime:
+                  type: integer
+                  description: Start time in seconds (YouTube only)
+                  example: 30
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/audio:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate Audio QR Code
+      description: |
+        Generate QR code for audio content (Spotify, Apple Music, etc.).
+        Perfect for restaurant playlists and background music.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - audioUrl
+              properties:
+                audioUrl:
+                  type: string
+                  example: "https://open.spotify.com/playlist/abc123"
+                audioTitle:
+                  type: string
+                  example: "Restaurant Playlist"
+                artistName:
+                  type: string
+                  example: "Various Artists"
+                audioType:
+                  type: string
+                  enum: [track, album, playlist, podcast, artist]
+                  example: "playlist"
+                platform:
+                  type: string
+                  enum: [spotify, apple-music, soundcloud, youtube-music, deezer, tidal, direct, other]
+                  description: Auto-detected if not specified
+                  example: "spotify"
+                duration:
+                  type: integer
+                  description: Duration in seconds
+                  example: 3600
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/multiurl:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate Multi-URL QR Code
+      description: |
+        Generate QR code that routes to different URLs based on conditions.
+        Supports device detection, priority routing, and user choice.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - urls
+              properties:
+                urls:
+                  type: array
+                  description: Array of URL objects (min 2, max 10)
+                  minItems: 2
+                  maxItems: 10
+                  items:
+                    type: object
+                    required:
+                      - url
+                    properties:
+                      url:
+                        type: string
+                      label:
+                        type: string
+                      device:
+                        type: string
+                        enum: [all, ios, android, desktop, mobile]
+                      priority:
+                        type: integer
+                        minimum: 1
+                        maximum: 100
+                      description:
+                        type: string
+                title:
+                  type: string
+                  description: Landing page title
+                  example: "Choose Your Language"
+                routingStrategy:
+                  type: string
+                  enum: [primary, device, choice, priority]
+                  example: "choice"
+                landingPageUrl:
+                  type: string
+                  description: Custom landing page URL
+            examples:
+              languageMenu:
+                summary: Multi-language Menu
+                value:
+                  urls:
+                    - url: "https://restaurant.com/menu-en"
+                      label: "English Menu"
+                      priority: 1
+                    - url: "https://restaurant.com/menu-vi"
+                      label: "Vietnamese Menu"
+                      priority: 2
+                    - url: "https://restaurant.com/menu-zh"
+                      label: "Chinese Menu"
+                      priority: 3
+                  title: "Select Your Menu Language"
+                  routingStrategy: "choice"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/businesspage:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate Business Page QR Code
+      description: |
+        Generate QR code for comprehensive business information.
+        Digital business card with contacts, hours, social links.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - businessName
+              properties:
+                businessName:
+                  type: string
+                  example: "Gudbro Vietnamese Restaurant"
+                description:
+                  type: string
+                  example: "Authentic Vietnamese cuisine"
+                websiteUrl:
+                  type: string
+                  example: "https://gudbro.com"
+                email:
+                  type: string
+                  example: "info@gudbro.com"
+                phone:
+                  type: string
+                  example: "+84-28-1234-5678"
+                address:
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    country:
+                      type: string
+                    postalCode:
+                      type: string
+                businessHours:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  example:
+                    monday: "11:00 - 22:00"
+                    friday: "11:00 - 23:00"
+                socialLinks:
+                  type: object
+                  properties:
+                    facebook:
+                      type: string
+                    instagram:
+                      type: string
+                    zalo:
+                      type: string
+                categories:
+                  type: array
+                  maxItems: 10
+                  items:
+                    type: string
+                  example: ["Vietnamese", "Asian", "Fine Dining"]
+                logo:
+                  type: string
+                  description: Logo image URL
+                coverImage:
+                  type: string
+                  description: Cover image URL
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/coupon:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate Coupon QR Code
+      description: |
+        Generate QR code for digital coupons and promotional offers.
+        Supports percentage, fixed amount, BOGO, and free item discounts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - couponCode
+                - title
+              properties:
+                couponCode:
+                  type: string
+                  description: Unique coupon code (3-50 chars, alphanumeric)
+                  example: "SAVE20"
+                title:
+                  type: string
+                  example: "20% Off Your Order"
+                description:
+                  type: string
+                  example: "Get 20% off during happy hour"
+                discountType:
+                  type: string
+                  enum: [percentage, fixed, bogo, free-item, free-shipping]
+                  example: "percentage"
+                discountValue:
+                  type: number
+                  description: Discount value (depends on type)
+                  example: 20
+                currency:
+                  type: string
+                  description: Currency for fixed discounts
+                  example: "VND"
+                validFrom:
+                  type: string
+                  format: date-time
+                  example: "2024-01-01T00:00:00Z"
+                validUntil:
+                  type: string
+                  format: date-time
+                  example: "2024-12-31T23:59:59Z"
+                minimumPurchase:
+                  type: number
+                  example: 50000
+                maxUses:
+                  type: integer
+                  minimum: 1
+                  maximum: 1000000
+                  example: 100
+                terms:
+                  oneOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+                  example: ["Valid Mon-Fri 5pm-7pm", "Cannot combine with other offers"]
+                redemptionUrl:
+                  type: string
+                  description: URL for coupon redemption
+                businessName:
+                  type: string
+                  example: "Gudbro Restaurant"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/feedbackform:
+    post:
+      tags:
+        - Standard QR
+      summary: Generate Feedback Form QR Code
+      description: |
+        Generate QR code for customer feedback and satisfaction surveys.
+        Supports custom questions, ratings, and external form services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - formTitle
+              properties:
+                formTitle:
+                  type: string
+                  example: "Dining Experience Feedback"
+                formDescription:
+                  type: string
+                  example: "Help us improve your experience"
+                submissionUrl:
+                  type: string
+                  description: Custom submission endpoint
+                  example: "https://api.example.com/feedback"
+                questions:
+                  type: array
+                  maxItems: 20
+                  items:
+                    type: object
+                    required:
+                      - question
+                    properties:
+                      question:
+                        type: string
+                      type:
+                        type: string
+                        enum: [rating, text, textarea, multiple-choice, yes-no, scale]
+                      required:
+                        type: boolean
+                      options:
+                        type: array
+                        items:
+                          type: string
+                      min:
+                        type: integer
+                      max:
+                        type: integer
+                      minLabel:
+                        type: string
+                      maxLabel:
+                        type: string
+                businessName:
+                  type: string
+                  example: "Gudbro Restaurant"
+                ratingType:
+                  type: string
+                  enum: [stars, numbers, emoji, thumbs]
+                  default: "stars"
+                collectEmail:
+                  type: boolean
+                  default: false
+                collectName:
+                  type: boolean
+                  default: false
+                thankYouMessage:
+                  type: string
+                  example: "Thank you for your feedback!"
+                formUrl:
+                  type: string
+                  description: Link to existing form (Google Forms, Typeform, etc.)
+                  example: "https://docs.google.com/forms/d/e/abc123/viewform"
+            examples:
+              googleForms:
+                summary: Link to Google Forms
+                value:
+                  formTitle: "Customer Satisfaction Survey"
+                  formDescription: "Rate your experience"
+                  formUrl: "https://docs.google.com/forms/d/e/abc/viewform"
+              customForm:
+                summary: Custom Form with Questions
+                value:
+                  formTitle: "Dining Feedback"
+                  questions:
+                    - question: "How was your meal?"
+                      type: "rating"
+                      min: 1
+                      max: 5
+                      required: true
+                    - question: "Any comments?"
+                      type: "textarea"
+                      required: false
+                  collectEmail: true
+                  ratingType: "stars"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  # ===================================
+  # ESSENTIAL QR ENDPOINTS
+  # ===================================
+
+  /api/qr/wifi:
+    post:
+      tags:
+        - Essential QR
+      summary: Generate WiFi QR Code
+      description: Generate QR code for WiFi network connection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ssid
+              properties:
+                ssid:
+                  type: string
+                  example: "Gudbro-WiFi"
+                password:
+                  type: string
+                  example: "password123"
+                encryption:
+                  type: string
+                  enum: [WPA, WEP, nopass]
+                  default: "WPA"
+                hidden:
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/vcard:
+    post:
+      tags:
+        - Essential QR
+      summary: Generate vCard QR Code
+      description: Generate QR code for contact information (vCard format)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+              properties:
+                firstName:
+                  type: string
+                  example: "John"
+                lastName:
+                  type: string
+                  example: "Doe"
+                phone:
+                  type: string
+                  example: "+1-555-123-4567"
+                email:
+                  type: string
+                  example: "john@example.com"
+                company:
+                  type: string
+                  example: "Gudbro Inc"
+                title:
+                  type: string
+                  example: "Manager"
+                address:
+                  type: string
+                  example: "123 Main St, City"
+                website:
+                  type: string
+                  example: "https://example.com"
+                note:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/email:
+    post:
+      tags:
+        - Essential QR
+      summary: Generate Email QR Code
+      description: Generate QR code for sending email (mailto link)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  example: "contact@example.com"
+                subject:
+                  type: string
+                  example: "Reservation Request"
+                body:
+                  type: string
+                  example: "I would like to make a reservation..."
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/sms:
+    post:
+      tags:
+        - Essential QR
+      summary: Generate SMS QR Code
+      description: Generate QR code for sending SMS message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phone
+              properties:
+                phone:
+                  type: string
+                  example: "+1-555-123-4567"
+                message:
+                  type: string
+                  example: "I'd like to make a reservation"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/event:
+    post:
+      tags:
+        - Essential QR
+      summary: Generate Event QR Code
+      description: Generate QR code for calendar event (iCalendar format)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - start
+                - end
+              properties:
+                title:
+                  type: string
+                  example: "Restaurant Opening"
+                start:
+                  type: string
+                  format: date-time
+                  example: "2024-12-01T18:00:00Z"
+                end:
+                  type: string
+                  format: date-time
+                  example: "2024-12-01T22:00:00Z"
+                location:
+                  type: string
+                  example: "123 Main St, City"
+                description:
+                  type: string
+                  example: "Join us for our grand opening"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  /api/qr/social:
+    post:
+      tags:
+        - Essential QR
+      summary: Generate Social Media QR Code
+      description: Generate QR code for social media profiles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - platform
+                - username
+              properties:
+                platform:
+                  type: string
+                  enum: [instagram, facebook, twitter, x, linkedin, tiktok, youtube, github]
+                  example: "instagram"
+                username:
+                  type: string
+                  example: "gudbrovietnam"
+      responses:
+        '200':
+          $ref: '#/components/responses/QRSuccess'
+
+  # ===================================
+  # QR DECODE & REWORK ENDPOINTS
+  # ===================================
+
+  /api/qr/decode:
+    post:
+      tags:
+        - QR Decode & Rework
+      summary: Decode QR Code from Image
+      description: |
+        Upload an existing QR code image and decode its content.
+
+        **Features:**
+        - Supports multiple image formats (PNG, JPG, JPEG, WebP, PDF)
+        - 4-strategy preprocessing for difficult QR codes
+        - Auto-detects 20+ QR types (WiFi, vCard, VietQR, Email, URL, etc.)
+        - Parses content based on detected type
+        - Max file size: 10MB
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - qrImage
+              properties:
+                qrImage:
+                  type: string
+                  format: binary
+                  description: QR code image file (PNG, JPG, JPEG, WebP, or PDF)
+      responses:
+        '200':
+          description: QR code decoded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "QR code decoded successfully"
+                  qr:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        description: Raw QR code content
+                        example: "WIFI:T:WPA;S:GudbrowiFi;P:password123;H:false;;"
+                      type:
+                        type: string
+                        description: Auto-detected QR type
+                        example: "wifi"
+                      typeInfo:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: "WiFi Network"
+                          description:
+                            type: string
+                            example: "WiFi connection credentials"
+                          icon:
+                            type: string
+                            example: "📶"
+                          canRework:
+                            type: boolean
+                            example: true
+                      parsed:
+                        type: object
+                        description: Parsed content based on QR type
+                        example:
+                          encryption: "WPA"
+                          ssid: "GudbrowiFi"
+                          password: "password123"
+                          hidden: false
+                      metadata:
+                        type: object
+                        properties:
+                          version:
+                            type: number
+                            example: 5
+                          dataLength:
+                            type: number
+                            example: 47
+                  file:
+                    type: object
+                    properties:
+                      originalName:
+                        type: string
+                        example: "wifi-qr.png"
+                      size:
+                        type: number
+                        example: 2398
+                      mimeType:
+                        type: string
+                        example: "image/png"
+              examples:
+                wifiQR:
+                  summary: WiFi QR Code
+                  value:
+                    success: true
+                    message: "QR code decoded successfully"
+                    qr:
+                      content: "WIFI:T:WPA;S:GudbrowiFi;P:password123;H:false;;"
+                      type: "wifi"
+                      typeInfo:
+                        name: "WiFi Network"
+                        description: "WiFi connection credentials"
+                        icon: "📶"
+                        canRework: true
+                      parsed:
+                        encryption: "WPA"
+                        ssid: "GudbrowiFi"
+                        password: "password123"
+                        hidden: false
+                      metadata:
+                        version: 5
+                        dataLength: 47
+                    file:
+                      originalName: "wifi-qr.png"
+                      size: 2398
+                      mimeType: "image/png"
+                vietqrURL:
+                  summary: VietQR Payment
+                  value:
+                    success: true
+                    message: "QR code decoded successfully"
+                    qr:
+                      content: "https://api.vietqr.io/image/VCB-0123456789-compact.jpg?amount=500000"
+                      type: "vietqr"
+                      typeInfo:
+                        name: "VietQR Payment"
+                        description: "Vietnamese bank transfer QR"
+                        icon: "💰"
+                        canRework: true
+                      parsed:
+                        content: "https://api.vietqr.io/image/VCB-0123456789-compact.jpg?amount=500000"
+                      metadata:
+                        version: 7
+                        dataLength: 70
+        '400':
+          description: Invalid request or QR decode failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                noFile:
+                  summary: No file uploaded
+                  value:
+                    success: false
+                    error: "No file uploaded"
+                    message: "Please upload a QR code image (PNG, JPG, JPEG, WebP, or PDF)"
+                decodeFailed:
+                  summary: QR decode failed
+                  value:
+                    success: false
+                    error: "QR decode failed"
+                    message: "No QR code found in image"
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/qr/rework:
+    post:
+      tags:
+        - QR Decode & Rework
+      summary: Decode and Rework QR Code
+      description: |
+        Upload an existing QR code and generate a new artistic version with custom styling.
+
+        **Use Case:** Restaurant has a plain QR menu code → Upload and get branded artistic QR with custom colors/style.
+
+        **Features:**
+        - Decodes original QR content
+        - Verifies QR type can be reworked
+        - Generates new QR with custom style, colors, size
+        - High error correction (Level H) for artistic QR codes
+        - Returns both original data and new QR image
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - qrImage
+              properties:
+                qrImage:
+                  type: string
+                  format: binary
+                  description: Original QR code image
+                style:
+                  type: string
+                  enum: [dots, squares, rounded]
+                  default: dots
+                  description: QR code style
+                errorCorrectionLevel:
+                  type: string
+                  enum: [L, M, Q, H]
+                  default: H
+                  description: Error correction level (H recommended for artistic QR)
+                width:
+                  type: integer
+                  default: 300
+                  description: QR code width in pixels
+                color:
+                  type: string
+                  description: JSON string with dark and light colors
+                  example: '{"dark":"#FF0000","light":"#FFFFFF"}'
+      responses:
+        '200':
+          description: QR code reworked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "QR reworked successfully"
+                  original:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        description: Original QR content
+                      type:
+                        type: string
+                        description: Detected QR type
+                      typeInfo:
+                        type: object
+                        description: Type information
+                      parsed:
+                        type: object
+                        description: Parsed content
+                  reworked:
+                    type: object
+                    properties:
+                      qr:
+                        type: string
+                        description: Base64-encoded new QR image
+                        example: "data:image/png;base64,iVBORw0KG..."
+                      style:
+                        type: string
+                        example: "dots"
+                      options:
+                        type: object
+                        properties:
+                          errorCorrectionLevel:
+                            type: string
+                            example: "H"
+                          width:
+                            type: integer
+                            example: 400
+                          color:
+                            type: object
+                            properties:
+                              dark:
+                                type: string
+                                example: "#FF0000"
+                              light:
+                                type: string
+                                example: "#FFFFFF"
+                  file:
+                    type: object
+                    properties:
+                      originalName:
+                        type: string
+                      size:
+                        type: number
+              examples:
+                urlRework:
+                  summary: URL QR Reworked
+                  value:
+                    success: true
+                    message: "QR reworked successfully"
+                    original:
+                      content: "https://gudbro.com/menu"
+                      type: "url"
+                      typeInfo:
+                        name: "Website URL"
+                        icon: "🔗"
+                        canRework: true
+                      parsed:
+                        url: "https://gudbro.com/menu"
+                        domain: "gudbro.com"
+                        path: "/menu"
+                    reworked:
+                      qr: "data:image/png;base64,iVBORw0KG..."
+                      style: "dots"
+                      options:
+                        errorCorrectionLevel: "H"
+                        width: 400
+                        color:
+                          dark: "#FF0000"
+                          light: "#FFFFFF"
+                    file:
+                      originalName: "menu-qr.png"
+                      size: 2145
+        '400':
+          description: Invalid request or QR type cannot be reworked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                cannotRework:
+                  summary: QR type cannot be reworked
+                  value:
+                    success: false
+                    error: "Cannot rework this QR type"
+                    message: 'QR type "unknown" cannot be reworked'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/qr/rework/info:
+    get:
+      tags:
+        - QR Decode & Rework
+      summary: Get QR Rework Information
+      description: |
+        Get information about supported QR types for rework, features, and limitations.
+      responses:
+        '200':
+          description: Information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  supportedTypes:
+                    type: array
+                    items:
+                      type: string
+                    example: ["wifi", "vcard", "email", "sms", "phone", "url", "vietqr", "zalo", "gcash", "paymaya", "promptpay", "alipay", "wechat", "pdf", "text"]
+                  typeDetails:
+                    type: object
+                    description: Detailed information for each supported type
+                    additionalProperties:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        icon:
+                          type: string
+                        canRework:
+                          type: boolean
+                  limits:
+                    type: object
+                    properties:
+                      maxFileSize:
+                        type: string
+                        example: "10MB"
+                      allowedFormats:
+                        type: array
+                        items:
+                          type: string
+                        example: ["PNG", "JPG", "JPEG", "WebP", "PDF"]
+                      preprocessingStrategies:
+                        type: integer
+                        example: 4
+                  features:
+                    type: object
+                    properties:
+                      autoTypeDetection:
+                        type: boolean
+                        example: true
+                      contentParsing:
+                        type: boolean
+                        example: true
+                      multiplePreprocessing:
+                        type: boolean
+                        example: true
+                      styleCustomization:
+                        type: boolean
+                        example: true
+
+components:
+  schemas:
+    QRResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        qr:
+          type: string
+          description: Base64-encoded QR code image
+          example: "data:image/png;base64,iVBORw0KG..."
+        data:
+          type: object
+          description: QR code data/metadata
+        note:
+          type: string
+          description: Implementation notes or warnings
+      required:
+        - success
+        - qr
+
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "Invalid input"
+        details:
+          type: string
+          description: Detailed error message
+      required:
+        - success
+        - error
+
+  responses:
+    QRSuccess:
+      description: QR code generated successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QRResponse'
+
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error: "Validation error"
+            details: "Missing required field: accountNumber"
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            error: "QR generation failed"
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication (future implementation)
+
+# Global responses for all endpoints
+components:
+  responses:
+    UnauthorizedError:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

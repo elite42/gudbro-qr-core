@@ -1,0 +1,552 @@
+openapi: 3.0.3
+info:
+  title: QR Platform API
+  description: |
+    Complete API for QR code generation, tracking, and management.
+    
+    ## Authentication
+    Most endpoints require either:
+    - **JWT Token** (from user login) in `Authorization: Bearer <token>`
+    - **API Key** (for external integrations) in `Authorization: Bearer <api_key>`
+    
+    ## Rate Limiting
+    - **Authenticated requests**: Limited by your API key's rate limit (default: 100/hour)
+    - **Unauthenticated requests**: Limited to 1000 requests/hour per IP
+    
+    Rate limit headers are included in responses:
+    - `X-RateLimit-Limit`: Your rate limit
+    - `X-RateLimit-Remaining`: Requests remaining
+    - `X-RateLimit-Reset`: Unix timestamp when limit resets
+    
+    ## Webhooks
+    Configure webhooks to receive real-time notifications about QR events.
+    All webhook payloads are signed with HMAC-SHA256.
+    
+  version: 1.0.0
+  contact:
+    name: QR Platform Support
+    email: support@qrplatform.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3005
+    description: Development server
+  - url: https://api.qrplatform.com/v1
+    description: Production server
+
+tags:
+  - name: API Keys
+    description: Manage API keys for external integrations
+  - name: Webhooks
+    description: Configure webhook endpoints for event notifications
+  - name: Usage
+    description: API usage analytics and statistics
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token from user login
+    
+    apiKeyAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: API key (format qrp_live_xxxxx)
+
+  schemas:
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        key_prefix:
+          type: string
+          example: qrp_live_abc
+        name:
+          type: string
+          example: Production API Key
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+            enum: [read, write, admin, qr:read, qr:write, analytics:read]
+        rate_limit:
+          type: integer
+          example: 100
+        is_active:
+          type: boolean
+        last_used_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+          example: https://example.com/webhook
+        events:
+          type: array
+          items:
+            type: string
+            enum: [scan, qr.created, qr.updated, qr.deleted, qr.expired, limit.reached]
+        is_active:
+          type: boolean
+        retry_count:
+          type: integer
+          example: 3
+        timeout_ms:
+          type: integer
+          example: 5000
+        created_at:
+          type: string
+          format: date-time
+
+    WebhookDelivery:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        event_type:
+          type: string
+        response_code:
+          type: integer
+          nullable: true
+        attempt_number:
+          type: integer
+        succeeded:
+          type: boolean
+        duration_ms:
+          type: integer
+          nullable: true
+        error_message:
+          type: string
+          nullable: true
+        delivered_at:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+
+paths:
+  # ============================================
+  # API Keys Endpoints
+  # ============================================
+  
+  /api/keys:
+    post:
+      tags: [API Keys]
+      summary: Create new API key
+      description: Generate a new API key for external integrations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  example: Production API Key
+                description:
+                  type: string
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                  example: [read, write]
+                rate_limit:
+                  type: integer
+                  example: 100
+                expires_at:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: API key created successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiKey'
+                  - type: object
+                    properties:
+                      key:
+                        type: string
+                        description: Full API key (shown only once!)
+                        example: qrp_live_abc123def456ghi789
+                      warning:
+                        type: string
+
+    get:
+      tags: [API Keys]
+      summary: List all API keys
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiKey'
+
+  /api/keys/{id}:
+    get:
+      tags: [API Keys]
+      summary: Get API key details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: API key details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '404':
+          description: API key not found
+
+    patch:
+      tags: [API Keys]
+      summary: Update API key
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                rate_limit:
+                  type: integer
+                is_active:
+                  type: boolean
+      responses:
+        '200':
+          description: API key updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+
+    delete:
+      tags: [API Keys]
+      summary: Revoke API key
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: API key revoked successfully
+
+  # ============================================
+  # Webhooks Endpoints
+  # ============================================
+  
+  /api/webhooks:
+    post:
+      tags: [Webhooks]
+      summary: Create webhook
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url, events]
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: HTTPS URL only
+                  example: https://example.com/webhook
+                events:
+                  type: array
+                  items:
+                    type: string
+                  example: [scan, qr.created]
+                retry_count:
+                  type: integer
+                  default: 3
+                timeout_ms:
+                  type: integer
+                  default: 5000
+      responses:
+        '201':
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Webhook'
+                  - type: object
+                    properties:
+                      secret:
+                        type: string
+                        description: Webhook secret for signature verification
+                        example: whsec_abc123...
+
+    get:
+      tags: [Webhooks]
+      summary: List webhooks
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of webhooks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+
+  /api/webhooks/{id}:
+    get:
+      tags: [Webhooks]
+      summary: Get webhook details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Webhook details with statistics
+
+    patch:
+      tags: [Webhooks]
+      summary: Update webhook
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                events:
+                  type: array
+                  items:
+                    type: string
+                is_active:
+                  type: boolean
+      responses:
+        '200':
+          description: Webhook updated
+
+    delete:
+      tags: [Webhooks]
+      summary: Delete webhook
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Webhook deleted
+
+  /api/webhooks/{id}/test:
+    post:
+      tags: [Webhooks]
+      summary: Test webhook
+      description: Send a test event to webhook
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Test webhook sent
+
+  /api/webhooks/{id}/deliveries:
+    get:
+      tags: [Webhooks]
+      summary: Get webhook delivery logs
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: event_type
+          in: query
+          schema:
+            type: string
+        - name: succeeded
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Webhook delivery logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deliveries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookDelivery'
+                  pagination:
+                    type: object
+
+  # ============================================
+  # Usage Analytics Endpoints
+  # ============================================
+  
+  /api/usage:
+    get:
+      tags: [Usage]
+      summary: Get overall API usage
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: API usage statistics
+
+  /api/usage/keys/{id}:
+    get:
+      tags: [Usage]
+      summary: Get usage for specific API key
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: API key usage statistics
+
+  /api/usage/timeline:
+    get:
+      tags: [Usage]
+      summary: Get usage over time
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Usage timeline with hourly/daily aggregation

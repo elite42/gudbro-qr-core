@@ -1,0 +1,30 @@
+{
+  "name": "module-12-filters",
+  "version": "1.0.0",
+  "description": "Health filters for allergens and dietary preferences",
+  "main": "backend/utils/healthFilters.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "testMatch": ["**/tests/**/*.test.js"]
+  },
+  "keywords": [
+    "health",
+    "allergens",
+    "dietary",
+    "filters",
+    "menu",
+    "qr-menu"
+  ],
+  "author": "QR Platform",
+  "license": "MIT"
+}

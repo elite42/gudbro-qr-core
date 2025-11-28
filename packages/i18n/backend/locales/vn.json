@@ -1,0 +1,70 @@
+{
+  "common": {
+    "welcome": "Chào mừng",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "sort": "Sắp xếp"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "noAccount": "Chưa có tài khoản?",
+    "hasAccount": "Đã có tài khoản?"
+  },
+  "qr": {
+    "title": "Mã QR",
+    "create": "Tạo mã QR",
+    "scan": "Quét mã QR",
+    "download": "Tải xuống",
+    "customize": "Tùy chỉnh",
+    "analytics": "Phân tích",
+    "destination": "URL đích",
+    "scans": "Lượt quét",
+    "clicks": "Lượt nhấp"
+  },
+  "menu": {
+    "title": "Thực đơn",
+    "category": "Danh mục",
+    "price": "Giá",
+    "description": "Mô tả",
+    "allergens": "Chất gây dị ứng",
+    "dietary": "Thông tin dinh dưỡng",
+    "addToOrder": "Thêm vào đơn",
+    "viewMenu": "Xem thực đơn",
+    "searchItems": "Tìm món..."
+  },
+  "hub": {
+    "title": "Trang Hub",
+    "links": "Liên kết",
+    "views": "Lượt xem",
+    "clicks": "Lượt nhấp",
+    "template": "Mẫu",
+    "customize": "Tùy chỉnh",
+    "addLink": "Thêm liên kết",
+    "preview": "Xem trước"
+  },
+  "currency": {
+    "label": "Tiền tệ",
+    "convert": "Chuyển đổi sang {{currency}}"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "vn": "Tiếng Việt",
+    "ko": "한국어",
+    "cn": "中文",
+    "en": "English"
+  }
+}

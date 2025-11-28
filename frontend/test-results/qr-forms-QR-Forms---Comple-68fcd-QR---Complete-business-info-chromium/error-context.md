@@ -1,0 +1,76 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /qr
+            - img [ref=e8]
+          - generic [ref=e10]:
+            - heading "Business Page QR Code" [level=1] [ref=e11]
+            - paragraph [ref=e12]: Create a QR code with your business information
+        - generic [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e18]: Standard
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - heading "Business Information" [level=2] [ref=e23]
+            - generic [ref=e24]:
+              - generic [ref=e25]:
+                - generic [ref=e26]: Business Name *
+                - textbox "Acme Corp" [active] [ref=e27]: Test Company Ltd
+              - generic [ref=e28]:
+                - generic [ref=e29]: Tagline
+                - textbox "Your trusted partner since 2020" [ref=e30]
+              - generic [ref=e31]:
+                - generic [ref=e32]: Description
+                - textbox "Brief description of your business..." [ref=e33]
+              - generic [ref=e34]:
+                - heading "Contact Information" [level=3] [ref=e35]
+                - generic [ref=e36]:
+                  - generic [ref=e37]: Phone
+                  - generic [ref=e38]:
+                    - generic:
+                      - img
+                    - textbox "+1234567890" [ref=e39]
+                - generic [ref=e40]:
+                  - generic [ref=e41]: Email
+                  - generic [ref=e42]:
+                    - generic:
+                      - img
+                    - textbox "contact@example.com" [ref=e43]
+                - generic [ref=e44]:
+                  - generic [ref=e45]: Website
+                  - generic [ref=e46]:
+                    - generic:
+                      - img
+                    - textbox "https://example.com" [ref=e47]
+                - generic [ref=e48]:
+                  - generic [ref=e49]: Address
+                  - generic [ref=e50]:
+                    - generic:
+                      - img
+                    - textbox "123 Main St, City, Country" [ref=e51]
+              - button "Generate QR Code" [ref=e53]:
+                - img [ref=e54]
+                - text: Generate QR Code
+          - generic [ref=e61]:
+            - img [ref=e62]
+            - generic [ref=e64]:
+              - heading "How it works" [level=3] [ref=e65]
+              - paragraph [ref=e66]: Scanning this QR code displays a mobile-friendly business page with all your contact information. Perfect for storefront windows, business cards, and marketing materials!
+        - generic [ref=e68]:
+          - heading "Preview" [level=2] [ref=e69]
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - paragraph [ref=e77]: QR code will appear here
+            - paragraph [ref=e78]: Fill in the form and click Generate
+  - button "Open Next.js Dev Tools" [ref=e84] [cursor=pointer]:
+    - img [ref=e85]
+  - alert [ref=e88]
+```

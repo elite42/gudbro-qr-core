@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Uploads (temporary test files)
+uploads/
+
+# Test coverage
+coverage/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store

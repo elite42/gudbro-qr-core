@@ -1,0 +1,54 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /qr
+            - img [ref=e8]
+          - generic [ref=e10]:
+            - heading "SMS QR Code" [level=1] [ref=e11]
+            - paragraph [ref=e12]: Create a QR code that opens a pre-filled text message
+        - generic [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e16]: Essential
+    - main [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]:
+            - heading "SMS Details" [level=2] [ref=e21]
+            - generic [ref=e22]:
+              - generic [ref=e23]:
+                - generic [ref=e24]: Phone Number *
+                - generic [ref=e25]:
+                  - generic:
+                    - img
+                  - textbox "+1234567890" [ref=e26]
+                - paragraph [ref=e27]: Include country code (e.g., +1 for US, +44 for UK)
+              - generic [ref=e28]:
+                - generic [ref=e29]: Message *
+                - generic [ref=e30]:
+                  - textbox "Hello! I'd like to..." [ref=e31]
+                  - generic [ref=e32]: 0/300
+                - paragraph [ref=e33]: This message will be pre-filled when the QR code is scanned
+              - button "Generate QR Code" [ref=e35]:
+                - img [ref=e36]
+                - text: Generate QR Code
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e46]:
+              - heading "How it works" [level=3] [ref=e47]
+              - paragraph [ref=e48]: When someone scans this QR code, their messaging app will open with your phone number and message already filled in. They just need to hit send!
+        - generic [ref=e50]:
+          - heading "Preview" [level=2] [ref=e51]
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - paragraph [ref=e59]: QR code will appear here
+            - paragraph [ref=e60]: Fill in the form and click Generate
+  - button "Open Next.js Dev Tools" [ref=e66] [cursor=pointer]:
+    - img [ref=e67]
+  - alert [ref=e70]
+```

@@ -1,0 +1,38 @@
+{
+  "name": "gudbro-qr-core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GUDBRO QR Platform - Core microservices and admin UI",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:qr-engine": "cd packages/qr-engine && npm run dev",
+    "dev:analytics": "cd packages/analytics && npm run dev",
+    "dev:api": "cd packages/api && npm start",
+    "dev:auth": "cd packages/auth && npm start",
+    "dev:hub": "cd packages/hub && npm start",
+    "build:frontend": "cd frontend && npm run build",
+    "build:all": "npm run build:frontend",
+    "lint:all": "npm run lint --workspaces",
+    "clean": "rm -rf packages/*/node_modules packages/*/.next packages/*/build frontend/node_modules frontend/.next node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/gudbro-qr-core.git"
+  },
+  "keywords": [
+    "gudbro",
+    "qr-code",
+    "qr-platform",
+    "microservices",
+    "admin-ui"
+  ],
+  "author": "GUDBRO Team",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

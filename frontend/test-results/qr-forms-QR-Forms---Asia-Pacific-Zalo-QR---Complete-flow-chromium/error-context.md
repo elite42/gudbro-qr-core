@@ -1,0 +1,48 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /qr
+            - img [ref=e8]
+          - generic [ref=e10]:
+            - heading "Zalo QR Code" [level=1] [ref=e11]
+            - paragraph [ref=e12]: Create a QR code for Zalo messaging (74M users in Vietnam)
+        - generic [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e16]: Asia-Pacific
+    - main [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]:
+            - heading "Zalo Contact Details" [level=2] [ref=e21]
+            - generic [ref=e22]:
+              - generic [ref=e23]:
+                - generic [ref=e24]: Phone Number *
+                - generic [ref=e25]:
+                  - generic:
+                    - img
+                  - textbox "+84912345678" [ref=e26]
+                - paragraph [ref=e27]: Include country code (+84 for Vietnam)
+              - button "Generate QR Code" [ref=e29]:
+                - img [ref=e30]
+                - text: Generate QR Code
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - generic [ref=e40]:
+              - heading "How it works" [level=3] [ref=e41]
+              - paragraph [ref=e42]: Scanning this QR code opens Zalo messenger and starts a conversation with this phone number. Zalo is Vietnam's most popular messaging app with over 74 million users.
+        - generic [ref=e44]:
+          - heading "Preview" [level=2] [ref=e45]
+          - generic [ref=e46]:
+            - img [ref=e47]
+            - paragraph [ref=e53]: QR code will appear here
+            - paragraph [ref=e54]: Fill in the form and click Generate
+  - button "Open Next.js Dev Tools" [ref=e60] [cursor=pointer]:
+    - img [ref=e61]
+  - alert [ref=e64]
+```

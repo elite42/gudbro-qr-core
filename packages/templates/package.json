@@ -1,0 +1,28 @@
+{
+  "name": "@gudbro/content-templates",
+  "version": "1.0.0",
+  "description": "QR Code content templates for various use cases (Email, Phone, WhatsApp, Social Media, etc)",
+  "main": "src/index.js",
+  "keywords": [
+    "qr",
+    "qrcode",
+    "templates",
+    "email",
+    "whatsapp",
+    "vcard",
+    "wifi",
+    "social-media"
+  ],
+  "author": "GUDBRO",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {}
+}
+

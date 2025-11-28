@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: qr-postgres
+    environment:
+      POSTGRES_USER: qr_user
+      POSTGRES_PASSWORD: qr_password
+      POSTGRES_DB: qr_platform
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qr_user -d qr_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - qr-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: qr-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - qr-network
+
+  # QR Engine API
+  api:
+    build: .
+    container_name: qr-api
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      BASE_URL: http://localhost:3000
+      DATABASE_URL: postgresql://qr_user:qr_password@postgres:5432/qr_platform
+      REDIS_URL: redis://redis:6379
+      CACHE_TTL: 3600
+      RATE_LIMIT_WINDOW_MS: 60000
+      RATE_LIMIT_MAX_REQUESTS: 100
+      QR_IMAGE_SIZE: 300
+      QR_ERROR_CORRECTION: M
+      QR_CODE_LENGTH: 6
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - qr-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  qr-network:
+    driver: bridge

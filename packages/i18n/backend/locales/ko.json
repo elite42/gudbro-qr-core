@@ -1,0 +1,70 @@
+{
+  "common": {
+    "welcome": "환영합니다",
+    "loading": "로딩 중...",
+    "error": "오류",
+    "success": "성공",
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "수정",
+    "back": "뒤로",
+    "next": "다음",
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬"
+  },
+  "auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "register": "회원가입",
+    "email": "이메일",
+    "password": "비밀번호",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "noAccount": "계정이 없으신가요?",
+    "hasAccount": "이미 계정이 있으신가요?"
+  },
+  "qr": {
+    "title": "QR 코드",
+    "create": "QR 코드 생성",
+    "scan": "QR 코드 스캔",
+    "download": "다운로드",
+    "customize": "사용자 정의",
+    "analytics": "분석",
+    "destination": "대상 URL",
+    "scans": "스캔 수",
+    "clicks": "클릭 수"
+  },
+  "menu": {
+    "title": "메뉴",
+    "category": "카테고리",
+    "price": "가격",
+    "description": "설명",
+    "allergens": "알레르기 유발 물질",
+    "dietary": "식이 정보",
+    "addToOrder": "주문에 추가",
+    "viewMenu": "메뉴 보기",
+    "searchItems": "메뉴 검색..."
+  },
+  "hub": {
+    "title": "허브 페이지",
+    "links": "링크",
+    "views": "조회수",
+    "clicks": "클릭 수",
+    "template": "템플릿",
+    "customize": "사용자 정의",
+    "addLink": "링크 추가",
+    "preview": "미리보기"
+  },
+  "currency": {
+    "label": "통화",
+    "convert": "{{currency}}로 변환"
+  },
+  "language": {
+    "label": "언어",
+    "vn": "Tiếng Việt",
+    "ko": "한국어",
+    "cn": "中文",
+    "en": "English"
+  }
+}

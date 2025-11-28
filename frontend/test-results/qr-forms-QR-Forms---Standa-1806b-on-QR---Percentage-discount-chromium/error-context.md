@@ -1,0 +1,76 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /qr
+            - img [ref=e8]
+          - generic [ref=e10]:
+            - heading "Coupon QR Code" [level=1] [ref=e11]
+            - paragraph [ref=e12]: Create a digital discount voucher or coupon
+        - generic [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e16]: Standard
+    - main [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]:
+            - heading "Coupon Details" [level=2] [ref=e21]
+            - generic [ref=e22]:
+              - generic [ref=e23]:
+                - generic [ref=e24]:
+                  - generic [ref=e25]: Coupon Title *
+                  - textbox "50% Off All Items" [ref=e26]
+                - generic [ref=e27]:
+                  - generic [ref=e28]: Coupon Code *
+                  - textbox "SAVE50" [ref=e29]
+                - generic [ref=e30]:
+                  - generic [ref=e31]: Description
+                  - textbox "Valid on all products..." [ref=e32]
+              - generic [ref=e33]:
+                - heading "Discount Details" [level=3] [ref=e34]
+                - generic [ref=e35]:
+                  - generic [ref=e36]: Discount Type
+                  - generic [ref=e37]:
+                    - button "% Off" [ref=e38]
+                    - button "$ Off" [ref=e39]
+                    - button "BOGO" [ref=e40]
+                - generic [ref=e41]:
+                  - generic [ref=e42]: Discount Value
+                  - generic [ref=e43]:
+                    - spinbutton [ref=e44]
+                    - generic: "%"
+              - generic [ref=e45]:
+                - heading "Validity Period" [level=3] [ref=e46]
+                - generic [ref=e47]:
+                  - generic [ref=e48]:
+                    - generic [ref=e49]: Valid From
+                    - textbox [ref=e50]
+                  - generic [ref=e51]:
+                    - generic [ref=e52]: Valid Until
+                    - textbox [ref=e53]
+              - generic [ref=e54]:
+                - generic [ref=e55]: Terms & Conditions
+                - textbox "One per customer. Not combinable with other offers..." [ref=e56]
+              - button "Generate QR Code" [ref=e58]:
+                - img [ref=e59]
+                - text: Generate QR Code
+          - generic [ref=e66]:
+            - img [ref=e67]
+            - generic [ref=e69]:
+              - heading "How it works" [level=3] [ref=e70]
+              - paragraph [ref=e71]: Scanning this QR code displays the coupon details. Perfect for in-store promotions, email campaigns, and social media marketing!
+        - generic [ref=e73]:
+          - heading "Preview" [level=2] [ref=e74]
+          - generic [ref=e75]:
+            - img [ref=e76]
+            - paragraph [ref=e82]: QR code will appear here
+            - paragraph [ref=e83]: Fill in the form and click Generate
+  - button "Open Next.js Dev Tools" [ref=e89] [cursor=pointer]:
+    - img [ref=e90]
+  - alert [ref=e93]
+```

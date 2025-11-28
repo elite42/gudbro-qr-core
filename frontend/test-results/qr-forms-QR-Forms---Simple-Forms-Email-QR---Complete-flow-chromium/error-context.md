@@ -1,0 +1,62 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /qr
+            - img [ref=e8]
+          - generic [ref=e10]:
+            - heading "Email QR Code" [level=1] [ref=e11]
+            - paragraph [ref=e12]: Create a QR code that opens a pre-filled email
+        - generic [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e17]: Essential
+    - main [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - heading "Email Details" [level=2] [ref=e22]
+            - generic [ref=e23]:
+              - generic [ref=e24]:
+                - generic [ref=e25]: Email Address *
+                - generic [ref=e26]:
+                  - generic:
+                    - img
+                  - textbox "contact@example.com" [ref=e27]
+                - paragraph [ref=e28]: The recipient email address
+              - generic [ref=e29]:
+                - generic [ref=e30]: Subject (Optional)
+                - generic [ref=e31]:
+                  - generic:
+                    - img
+                  - textbox "Inquiry about..." [ref=e32]
+                - paragraph [ref=e33]: Pre-filled subject line
+              - generic [ref=e34]:
+                - generic [ref=e35]: Message Body (Optional)
+                - generic [ref=e36]:
+                  - textbox "Hello, I would like to..." [ref=e37]:
+                    - /placeholder: Hello,  I would like to...
+                  - generic [ref=e38]: 0/500
+                - paragraph [ref=e39]: Pre-filled email message
+              - button "Generate QR Code" [ref=e41]:
+                - img [ref=e42]
+                - text: Generate QR Code
+          - generic [ref=e49]:
+            - img [ref=e50]
+            - generic [ref=e52]:
+              - heading "How it works" [level=3] [ref=e53]
+              - paragraph [ref=e54]: Scanning this QR code opens the default email app with the recipient, subject, and message already filled in. Great for contact forms, support requests, or feedback collection!
+        - generic [ref=e56]:
+          - heading "Preview" [level=2] [ref=e57]
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - paragraph [ref=e65]: QR code will appear here
+            - paragraph [ref=e66]: Fill in the form and click Generate
+  - button "Open Next.js Dev Tools" [ref=e72] [cursor=pointer]:
+    - img [ref=e73]
+  - alert [ref=e76]
+```

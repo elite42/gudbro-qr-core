@@ -1,0 +1,435 @@
+/**
+ * GUDBRO Ingredient Database - Beverages & Superfoods
+ *
+ * Additional ingredients extracted from ROOTS and Coffee House menus
+ * Focus: Matcha, Teas, Superfoods, Cacao, Vanilla
+ */
+
+import type { IngredientMaster } from '../types';
+
+export const beveragesSuperfoods: IngredientMaster[] = [
+  // ========================================================================
+  // MATCHA & GREEN TEA
+  // ========================================================================
+  {
+    id: 'ING_MATCHA_POWDER',
+    slug: 'matcha-powder',
+    name: {
+      en: 'Matcha Powder',
+      it: 'Polvere di Matcha',
+      vi: 'Bột Matcha',
+      ko: '말차 가루',
+      ja: '抹茶パウダー',
+    },
+    description: {
+      en: 'Premium Japanese green tea powder',
+      it: 'Polvere di tè verde giapponese premium',
+      vi: 'Bột trà xanh Nhật Bản cao cấp',
+    },
+    category: { main: 'beverages', sub: 'tea' },
+    allergens: {},
+    intolerances: {
+      caffeine: true,
+    },
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      low_carb: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 29.6,
+      carbs_g: 38.5,
+      fat_g: 5.3,
+      fiber_g: 38.5,
+      calories_kcal: 324,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  {
+    id: 'ING_GREEN_TEA',
+    slug: 'green-tea',
+    name: {
+      en: 'Green Tea',
+      it: 'Tè Verde',
+      vi: 'Trà Xanh',
+      ko: '녹차',
+      ja: '緑茶',
+    },
+    category: { main: 'beverages', sub: 'tea' },
+    allergens: {},
+    intolerances: {
+      caffeine: true,
+    },
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      low_carb: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 0.2,
+      carbs_g: 0,
+      fat_g: 0,
+      fiber_g: 0,
+      calories_kcal: 1,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  {
+    id: 'ING_BLACK_TEA',
+    slug: 'black-tea',
+    name: {
+      en: 'Black Tea',
+      it: 'Tè Nero',
+      vi: 'Trà Đen',
+      ko: '홍차',
+      ja: '紅茶',
+    },
+    category: { main: 'beverages', sub: 'tea' },
+    allergens: {},
+    intolerances: {
+      caffeine: true,
+    },
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      low_carb: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 0.1,
+      carbs_g: 0.3,
+      fat_g: 0,
+      fiber_g: 0,
+      calories_kcal: 2,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  {
+    id: 'ING_BUTTERFLY_PEA_TEA',
+    slug: 'butterfly-pea-tea',
+    name: {
+      en: 'Butterfly Pea Tea',
+      it: 'Tè di Pisello Farfalla',
+      vi: 'Trà Hoa Đậu Biếc',
+      ko: '나비완두차',
+      ja: 'バタフライピーティー',
+    },
+    description: {
+      en: 'Natural blue tea with color-changing properties',
+      it: 'Tè blu naturale con proprietà che cambiano colore',
+      vi: 'Trà xanh tự nhiên có đặc tính đổi màu',
+    },
+    category: { main: 'beverages', sub: 'tea' },
+    allergens: {},
+    intolerances: {},
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      low_carb: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 0.1,
+      carbs_g: 0,
+      fat_g: 0,
+      fiber_g: 0,
+      calories_kcal: 0,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  // ========================================================================
+  // CACAO & CHOCOLATE
+  // ========================================================================
+  {
+    id: 'ING_CACAO_POWDER',
+    slug: 'cacao-powder',
+    name: {
+      en: 'Cacao Powder',
+      it: 'Polvere di Cacao',
+      vi: 'Bột Cacao',
+      ko: '카카오 가루',
+      ja: 'カカオパウダー',
+    },
+    description: {
+      en: 'Raw cacao powder, unprocessed',
+      it: 'Polvere di cacao crudo, non lavorato',
+      vi: 'Bột cacao thô, chưa qua chế biến',
+    },
+    category: { main: 'superfoods', sub: 'cacao' },
+    allergens: {},
+    intolerances: {
+      caffeine: true,
+      histamine: true,
+    },
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 19.6,
+      carbs_g: 57.9,
+      fat_g: 13.7,
+      fiber_g: 33.2,
+      calories_kcal: 228,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  {
+    id: 'ING_COCOA_POWDER',
+    slug: 'cocoa-powder',
+    name: {
+      en: 'Cocoa Powder',
+      it: 'Cacao in Polvere',
+      vi: 'Bột Ca cao',
+      ko: '코코아 가루',
+      ja: 'ココアパウダー',
+    },
+    description: {
+      en: 'Processed cocoa powder (Dutch process)',
+      it: 'Polvere di cacao lavorata (processo olandese)',
+      vi: 'Bột ca cao đã qua chế biến',
+    },
+    category: { main: 'sweeteners', sub: 'chocolate' },
+    allergens: {},
+    intolerances: {
+      caffeine: true,
+      histamine: true,
+    },
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 21.2,
+      carbs_g: 55.3,
+      fat_g: 12.8,
+      fiber_g: 33.0,
+      calories_kcal: 230,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  // ========================================================================
+  // VANILLA
+  // ========================================================================
+  {
+    id: 'ING_VANILLA_EXTRACT',
+    slug: 'vanilla-extract',
+    name: {
+      en: 'Vanilla Extract',
+      it: 'Estratto di Vaniglia',
+      vi: 'Chiết Xuất Vani',
+      ko: '바닐라 추출물',
+      ja: 'バニラエキス',
+    },
+    category: { main: 'sweeteners', sub: 'flavoring' },
+    allergens: {},
+    intolerances: {
+      alcohol: true,
+    },
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      halal: true,
+      kosher: true,
+      low_carb: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 0.1,
+      carbs_g: 12.7,
+      fat_g: 0,
+      fiber_g: 0,
+      calories_kcal: 288,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  // ========================================================================
+  // SUPERFOODS
+  // ========================================================================
+  {
+    id: 'ING_SPIRULINA',
+    slug: 'spirulina',
+    name: {
+      en: 'Spirulina',
+      it: 'Spirulina',
+      vi: 'Tảo Xoắn',
+      ko: '스피룰리나',
+      ja: 'スピルリナ',
+    },
+    description: {
+      en: 'Blue-green algae superfood',
+      it: 'Superfood di alghe blu-verdi',
+      vi: 'Siêu thực phẩm tảo xanh lam',
+    },
+    category: { main: 'superfoods', sub: 'algae' },
+    allergens: {},
+    intolerances: {},
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      halal: true,
+      kosher: true,
+      low_carb: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 57.5,
+      carbs_g: 23.9,
+      fat_g: 7.7,
+      fiber_g: 3.6,
+      calories_kcal: 290,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  {
+    id: 'ING_MORINGA',
+    slug: 'moringa',
+    name: {
+      en: 'Moringa Powder',
+      it: 'Polvere di Moringa',
+      vi: 'Bột Chùm Ngây',
+      ko: '모링가 가루',
+      ja: 'モリンガパウダー',
+    },
+    description: {
+      en: 'Moringa oleifera leaf powder, superfood',
+      it: 'Polvere di foglie di Moringa oleifera, superfood',
+      vi: 'Bột lá Moringa oleifera, siêu thực phẩm',
+    },
+    category: { main: 'superfoods', sub: 'leaves' },
+    allergens: {},
+    intolerances: {},
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      halal: true,
+      kosher: true,
+      low_carb: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 27.1,
+      carbs_g: 38.2,
+      fat_g: 2.3,
+      fiber_g: 19.2,
+      calories_kcal: 205,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+
+  {
+    id: 'ING_GOJI_BERRIES',
+    slug: 'goji-berries',
+    name: {
+      en: 'Goji Berries',
+      it: 'Bacche di Goji',
+      vi: 'Quả Kỷ Tử',
+      ko: '구기자',
+      ja: 'クコの実',
+    },
+    category: { main: 'superfoods', sub: 'berries' },
+    allergens: {},
+    intolerances: {},
+    dietary_restrictions: {
+      vegan: true,
+      vegetarian: true,
+      pescatarian: true,
+      gluten_free: true,
+      dairy_free: true,
+      nut_free: true,
+      halal: true,
+      kosher: true,
+    },
+    spice: { level: 0 },
+    nutrition: {
+      protein_g: 14.3,
+      carbs_g: 77.1,
+      fat_g: 0.4,
+      fiber_g: 13.0,
+      calories_kcal: 349,
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    version: 1,
+  },
+];
+
+export const BEVERAGES_SUPERFOODS_COUNT = beveragesSuperfoods.length;

@@ -1,0 +1,203 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - heading "Create QR Code" [level=1] [ref=e7]
+          - paragraph [ref=e8]: Choose from 19 QR code types across 3 categories
+        - link "Back to Dashboard" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - text: Back to Dashboard
+    - main [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - img [ref=e17]
+            - heading "Essential QR Types" [level=2] [ref=e19]
+          - paragraph [ref=e20]: Fundamental QR codes for everyday use
+        - generic [ref=e21]:
+          - link "SMS Pre-filled text message" [ref=e22] [cursor=pointer]:
+            - /url: /qr/create/sms
+            - generic [ref=e23]:
+              - img [ref=e25]
+              - generic [ref=e27]:
+                - heading "SMS" [level=3] [ref=e28]
+                - paragraph [ref=e29]: Pre-filled text message
+              - img [ref=e30]
+          - link "Email Mailto link with subject & body" [ref=e32] [cursor=pointer]:
+            - /url: /qr/create/email
+            - generic [ref=e33]:
+              - img [ref=e35]
+              - generic [ref=e38]:
+                - heading "Email" [level=3] [ref=e39]
+                - paragraph [ref=e40]: Mailto link with subject & body
+              - img [ref=e41]
+          - link "WiFi Network credentials" [ref=e43] [cursor=pointer]:
+            - /url: /qr/create/wifi
+            - generic [ref=e44]:
+              - img [ref=e46]
+              - generic [ref=e50]:
+                - heading "WiFi" [level=3] [ref=e51]
+                - paragraph [ref=e52]: Network credentials
+              - img [ref=e53]
+          - link "Social Media 8 social platforms" [ref=e55] [cursor=pointer]:
+            - /url: /qr/create/social
+            - generic [ref=e56]:
+              - img [ref=e58]
+              - generic [ref=e64]:
+                - heading "Social Media" [level=3] [ref=e65]
+                - paragraph [ref=e66]: 8 social platforms
+              - img [ref=e67]
+          - link "Calendar Event iCalendar format" [ref=e69] [cursor=pointer]:
+            - /url: /qr/create/event
+            - generic [ref=e70]:
+              - img [ref=e72]
+              - generic [ref=e74]:
+                - heading "Calendar Event" [level=3] [ref=e75]
+                - paragraph [ref=e76]: iCalendar format
+              - img [ref=e77]
+          - link "vCard Contact Digital business card" [ref=e79] [cursor=pointer]:
+            - /url: /qr/create/vcard
+            - generic [ref=e80]:
+              - img [ref=e82]
+              - generic [ref=e85]:
+                - heading "vCard Contact" [level=3] [ref=e86]
+                - paragraph [ref=e87]: Digital business card
+              - img [ref=e88]
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - generic [ref=e92]:
+            - img [ref=e94]
+            - heading "Asia-Pacific QR Types" [level=2] [ref=e97]
+          - paragraph [ref=e98]: Social & payment systems popular in Vietnam, Korea, China, Thailand
+        - generic [ref=e99]:
+          - link "Zalo Vietnam messaging (74M users)" [ref=e100] [cursor=pointer]:
+            - /url: /qr/create/zalo
+            - generic [ref=e101]:
+              - img [ref=e103]
+              - generic [ref=e105]:
+                - heading "Zalo" [level=3] [ref=e106]
+                - paragraph [ref=e107]: Vietnam messaging (74M users)
+              - img [ref=e108]
+          - link "KakaoTalk South Korea (47M users)" [ref=e110] [cursor=pointer]:
+            - /url: /qr/create/kakaotalk
+            - generic [ref=e111]:
+              - img [ref=e113]
+              - generic [ref=e115]:
+                - heading "KakaoTalk" [level=3] [ref=e116]
+                - paragraph [ref=e117]: South Korea (47M users)
+              - img [ref=e118]
+          - link "LINE Thailand/Taiwan/Japan (165M+)" [ref=e120] [cursor=pointer]:
+            - /url: /qr/create/line
+            - generic [ref=e121]:
+              - img [ref=e123]
+              - generic [ref=e125]:
+                - heading "LINE" [level=3] [ref=e126]
+                - paragraph [ref=e127]: Thailand/Taiwan/Japan (165M+)
+              - img [ref=e128]
+          - link "WeChat Pay Chinese payment system" [ref=e130] [cursor=pointer]:
+            - /url: /qr/create/wechat-pay
+            - generic [ref=e131]:
+              - img [ref=e133]
+              - generic [ref=e135]:
+                - heading "WeChat Pay" [level=3] [ref=e136]
+                - paragraph [ref=e137]: Chinese payment system
+              - img [ref=e138]
+          - link "VietQR Vietnam payment (23 banks)" [ref=e140] [cursor=pointer]:
+            - /url: /qr/create/vietqr
+            - generic [ref=e141]:
+              - img [ref=e143]
+              - generic [ref=e146]:
+                - heading "VietQR" [level=3] [ref=e147]
+                - paragraph [ref=e148]: Vietnam payment (23 banks)
+              - img [ref=e149]
+      - generic [ref=e151]:
+        - generic [ref=e152]:
+          - generic [ref=e153]:
+            - img [ref=e155]
+            - heading "Standard QR Types" [level=2] [ref=e158]
+          - paragraph [ref=e159]: Advanced QR codes for business and marketing
+        - generic [ref=e160]:
+          - link "PDF Direct PDF download" [ref=e161] [cursor=pointer]:
+            - /url: /qr/create/pdf
+            - generic [ref=e162]:
+              - img [ref=e164]
+              - generic [ref=e167]:
+                - heading "PDF" [level=3] [ref=e168]
+                - paragraph [ref=e169]: Direct PDF download
+              - img [ref=e170]
+          - link "App Store iOS & Android apps" [ref=e172] [cursor=pointer]:
+            - /url: /qr/create/app-store
+            - generic [ref=e173]:
+              - img [ref=e175]
+              - generic [ref=e177]:
+                - heading "App Store" [level=3] [ref=e178]
+                - paragraph [ref=e179]: iOS & Android apps
+              - img [ref=e180]
+          - link "Video YouTube, Vimeo, TikTok, etc." [ref=e182] [cursor=pointer]:
+            - /url: /qr/create/video
+            - generic [ref=e183]:
+              - img [ref=e185]
+              - generic [ref=e188]:
+                - heading "Video" [level=3] [ref=e189]
+                - paragraph [ref=e190]: YouTube, Vimeo, TikTok, etc.
+              - img [ref=e191]
+          - link "Audio Spotify, Apple Music, etc." [ref=e193] [cursor=pointer]:
+            - /url: /qr/create/audio
+            - generic [ref=e194]:
+              - img [ref=e196]
+              - generic [ref=e200]:
+                - heading "Audio" [level=3] [ref=e201]
+                - paragraph [ref=e202]: Spotify, Apple Music, etc.
+              - img [ref=e203]
+          - link "Multi-URL Smart device routing" [ref=e205] [cursor=pointer]:
+            - /url: /qr/create/multi-url
+            - generic [ref=e206]:
+              - img [ref=e208]
+              - generic [ref=e212]:
+                - heading "Multi-URL" [level=3] [ref=e213]
+                - paragraph [ref=e214]: Smart device routing
+              - img [ref=e215]
+          - link "Business Page Company info + hours" [ref=e217] [cursor=pointer]:
+            - /url: /qr/create/business-page
+            - generic [ref=e218]:
+              - img [ref=e220]
+              - generic [ref=e224]:
+                - heading "Business Page" [level=3] [ref=e225]
+                - paragraph [ref=e226]: Company info + hours
+              - img [ref=e227]
+          - link "Coupon Digital discount voucher" [ref=e229] [cursor=pointer]:
+            - /url: /qr/create/coupon
+            - generic [ref=e230]:
+              - img [ref=e232]
+              - generic [ref=e234]:
+                - heading "Coupon" [level=3] [ref=e235]
+                - paragraph [ref=e236]: Digital discount voucher
+              - img [ref=e237]
+          - link "Feedback Customer surveys" [ref=e239] [cursor=pointer]:
+            - /url: /qr/create/feedback-form
+            - generic [ref=e240]:
+              - img [ref=e242]
+              - generic [ref=e244]:
+                - heading "Feedback" [level=3] [ref=e245]
+                - paragraph [ref=e246]: Customer surveys
+              - img [ref=e247]
+    - contentinfo [ref=e249]:
+      - generic [ref=e250]:
+        - generic [ref=e251]:
+          - generic [ref=e252]: "19"
+          - generic [ref=e253]: QR Code Types
+        - generic [ref=e254]:
+          - generic [ref=e255]: 1.5B+
+          - generic [ref=e256]: Potential Users (Asia-Pacific)
+        - generic [ref=e257]:
+          - generic [ref=e258]: 100%
+          - generic [ref=e259]: Production Ready Backend
+  - button "Open Next.js Dev Tools" [ref=e265] [cursor=pointer]:
+    - img [ref=e266]
+  - alert [ref=e269]
+```

@@ -1,0 +1,55 @@
+{
+  "name": "@gudbro/artistic-qr",
+  "version": "1.0.0",
+  "description": "Artistic QR Code Generator using Replicate AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "worker": "node workers/queue-worker.js",
+    "dev": "nodemon server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.7.0",
+    "axios": "^1.6.2",
+    "bull": "^4.11.5",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.3.2",
+    "jimp": "^0.22.12",
+    "joi": "^17.11.0",
+    "jsqr": "^1.4.0",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.2",
+    "nanoid": "^3.3.7",
+    "pdf-parse": "^2.4.5",
+    "pg": "^8.11.3",
+    "qrcode": "^1.5.3",
+    "redis": "^4.6.11",
+    "replicate": "^0.25.0",
+    "sharp": "^0.34.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2"
+  },
+  "optionalDependencies": {
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "keywords": [
+    "qr",
+    "qr-code",
+    "vietqr",
+    "payment",
+    "asia",
+    "restaurant",
+    "artistic-qr"
+  ]
+}
