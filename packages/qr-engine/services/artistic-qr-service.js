@@ -8,7 +8,7 @@ import crypto from 'crypto';
 import { getStyle } from '../utils/styles-library.js';
 
 const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN || 'r8_0ilY3ShSwgE5VFzuAuS1dgNcAykUDlx0nYTI3'
+  auth: process.env.REPLICATE_API_TOKEN || ''
 });
 
 const MODEL = "monster-labs/control_v1p_sd15_qrcode_monster:4c0e63f6e8e5748e0ef3a284aff5ed22eb87bb7b64e23253de6badf67e555b98";

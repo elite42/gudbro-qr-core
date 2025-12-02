@@ -277,7 +277,7 @@ router.post('/artistic', artisticQRLimiter, async (req, res) => {
 
 ```bash
 # Replicate
-REPLICATE_API_TOKEN=r8_0ilY3ShSwgE5VFzuAuS1dgNcAykUDlx0nYTI3
+REPLICATE_API_TOKEN=your_replicate_api_token_here
 
 # Redis
 REDIS_URL=redis://your-redis:6379
