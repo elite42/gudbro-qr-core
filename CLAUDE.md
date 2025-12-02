@@ -247,10 +247,10 @@ npm run build
 
 | Component | Platform | URL | Status |
 |-----------|----------|-----|--------|
-| Frontend | Vercel | TBD | Pending |
-| QR Engine | TBD | TBD | Pending |
-| Database | Supabase | TBD | Pending |
-| Redis | Upstash | TBD | Pending |
+| Frontend | Vercel | https://gudbro-qr-platform.vercel.app | ✅ LIVE |
+| QR Engine | TBD | TBD | ⏳ Pending |
+| Database | Supabase | TBD | ⏳ Pending |
+| Redis | Upstash | TBD | ⏳ Pending |
 
 ---
 
@@ -272,9 +272,10 @@ npm run build
 ## Known Issues & Technical Debt
 
 ### High Priority
-- [ ] No GitHub remote configured - need to push to GitHub
+- [x] ~~No GitHub remote configured~~ - Pushed to GitHub (elite42/gudbro-qr-core)
 - [ ] QR Engine needs PostgreSQL database setup
 - [ ] Redis connection required for caching
+- [ ] Replicate API token revoked - need to create new one
 
 ### Medium Priority
 - [ ] Frontend mock APIs used in development
@@ -346,3 +347,26 @@ cd packages/qr-engine && npm test
 **This file provides project-wide context for Claude Code sessions.**
 
 **Last Updated:** 2025-12-02
+
+---
+
+## Claude Code Session Rules
+
+### Auto-Update Rule
+
+**IMPORTANTE:** Claude deve aggiornare questo file CLAUDE.md automaticamente dopo:
+1. Ogni **deploy** completato
+2. Ogni **fix critico** risolto
+3. Ogni **nuova feature** implementata
+4. Ogni **decisione architetturale** importante
+5. Prima di **chiudere sessioni lunghe** (quando il contesto si riempie)
+
+### Come Aggiornare
+- Aggiornare la sezione "Recent Changes" con data e descrizione
+- Aggiornare "Deployment Status" se cambia
+- Aggiornare "Known Issues" se risolti o nuovi
+- Aggiornare "Last Updated" con la data corrente
+- Fare commit delle modifiche
+
+### Trigger Frase
+Se l'utente dice "Aggiorna CLAUDE.md" o "salva contesto", Claude deve aggiornare immediatamente questo file con lo stato attuale della sessione
