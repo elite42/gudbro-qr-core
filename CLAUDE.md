@@ -2,9 +2,9 @@
 
 **Repository:** gudbro-qr-core
 **Purpose:** QR Code Generation Platform - Core microservices & Admin UI
-**Tech Stack:** Node.js (Express) + Next.js 15 (Frontend)
-**Status:** Ready for Deployment
-**Last Updated:** 2025-12-02
+**Tech Stack:** Node.js (Express) + Next.js 15.5.7 (Frontend)
+**Status:** Deployed on Vercel
+**Last Updated:** 2025-12-04
 
 ---
 
@@ -116,7 +116,7 @@ gudbro-qr-core/
 ### Frontend (Admin UI)
 ```json
 {
-  "framework": "Next.js 15.0.3",
+  "framework": "Next.js 15.5.7",
   "react": "18.3.1",
   "styling": "Tailwind CSS 3.4.1",
   "state": "Zustand 5.x + TanStack Query 5.x",
@@ -255,6 +255,23 @@ npm run build
 ---
 
 ## Recent Changes
+
+### 2025-12-04: Security Update Next.js 15.5.7
+
+**Issue:** Vercel notified of CVE-2025-55182 (React Server Components vulnerability)
+
+**Action:** Upgraded Next.js from 15.0.3 → 15.5.7
+
+**Vulnerabilities Fixed:**
+- CVE-2025-55182: React Server Components vulnerability
+- CVE-2025-66478: Next.js specific vulnerability
+- DoS via Server Actions
+- Cache poisoning
+- Image optimization vulnerabilities
+- Middleware redirect SSRF
+- Authorization bypass
+
+**Result:** npm audit shows 0 vulnerabilities
 
 ### 2025-12-02: Stack Downgrade for Vercel Deployment
 - **Frontend**: Next.js 16 → 15.0.3, React 19 → 18.3.1, Tailwind v4 → v3.4.1
